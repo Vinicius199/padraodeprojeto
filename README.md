@@ -1,18 +1,16 @@
-Atividade de padrão de projeto 
+# Atividade padão de projeto
 
- padrões q eu estou ultilizando nesse projeto são:
- - Padão criacional o Factory Method
- - Padão estrutual o Adapter tambem conhecido como Wrapper
- - Padão comportamental o Template Method
+padrões q eu estou ultilizando nesse projeto são:
 
- Cada um dos padroes estao comentado em como eu ultilizei na funcionalidade que implementei e tbm ultilizei para me basear nos padroes o site refactoring guri e o arquivo que foi implementado os padroes eh no "models.py"
+Padão criacional o Factory Method
+Padão estrutual o Adapter tambem conhecido como Wrapper
+Padão comportamental o Template Method
+Cada um dos padroes estao comentado em como eu ultilizei na funcionalidade que implementei e tbm ultilizei para me basear nos padroes o site refactoring guri e o arquivo que foi implementado os padroes eh no "models.py"
 
- referencias:
- https://refactoring.guru/pt-br/design-patterns/factory-method
- https://refactoring.guru/pt-br/design-patterns/adapter
- https://refactoring.guru/pt-br/design-patterns/template-method
-
-Abaixo os comando para rodar o sistema 
+referencias: 
+https://refactoring.guru/pt-br/design-patterns/factory-method 
+https://refactoring.guru/pt-br/design-patterns/adapter 
+https://refactoring.guru/pt-br/design-patterns/template-method
 
 Usando a tecnologia Django
 
