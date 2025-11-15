@@ -1,4 +1,5 @@
 Atividade de padrão de projeto 
+
  padrões q eu estou ultilizando nesse projeto são:
  - Padão criacional o Factory Method
  - Padão estrutual o Adapter tambem conhecido como Wrapper
