@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-AUTH_USER_MODEL = 'clientes.Cliente' 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 MIDDLEWARE = [
@@ -124,8 +123,11 @@ MIDIA_URL = '/midia/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = [
+    'clientes.backends.ClienteBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+AUTH_USER_MODEL = 'clientes.Cliente'
 
 LOGIN_URL = '/login/'
 
