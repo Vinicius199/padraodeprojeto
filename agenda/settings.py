@@ -117,8 +117,18 @@ STATIC_ROOT = os.path.join('static')
 MIDIA_ROOT = os.path.join(BASE_DIR, 'midia')
 MIDIA_URL = '/midia/'
 
+#se der problema, comentar as linhas abaixo
+
+SESSION_COOKIE_SEGURE = False
+SESSION_COOKIE_HTTPONLY = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
+SESSION_COOKIE_SEGURE = False
+SESSION_COOKIE_HTTPONLY = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
