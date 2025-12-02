@@ -13,7 +13,7 @@ from django.contrib import messages
 from .forms import CadastroForm, ClienteUpdateForm, AgendamentoForm, ProfissionalForm, ServicoForm, ProfissionalCadastroForm
 from .models import Cliente, Agendamento, Servico, Profissional
 from django.views.decorators.http import require_POST, require_http_methods
-from google_auth_oauthlib.flow import Flow
+from google_auth_oauthlib.flow import Flow, InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
@@ -43,19 +43,25 @@ def is_admin_or_staff(user):
 @login_required
 def google_calendar_auth_start(request):
 
-    callback_uri = request.build_absolute_uri('google_calendar_auth_callback')
+    #relative_path = reverse('google_calendar_auth_callback')
+
+    #callback_uri = request.build_absolute_uri(relative_path)
+    callback_uri = "http://127.0.0.1:8000/"
+
 
     if callback_uri.startswith('https'):
         callback_uri = callback_uri.replace('https', 'http', 1)
 
-    print(f"DEBUG: URL Callback URI para OAuth2: {callback_uri}")
+    print(f"DEBUG: URL enviada final (localhost sem porta): {callback_uri}")
 
-    flow = Flow.from_client_secrets_file(
+    flow = InstalledAppFlow.from_client_secrets_file(
         CLIENT_SECRET_FILE, 
         scopes=SCOPES, 
         redirect_uri=callback_uri
         #request.build_absolute_uri('callback') 
     )
+
+    flow.redirect_uri = callback_uri
 
     authorization_url, state = flow.authorization_url(
         access_type='offline', 
@@ -63,6 +69,7 @@ def google_calendar_auth_start(request):
     )
     
     request.session['oauth_state'] = state
+    request.session['oauth_cliemt_id'] = flow.client_config['client_id']
     
     return redirect(authorization_url)
 
@@ -72,15 +79,21 @@ def google_calendar_auth_callback(request):
     state = request.session.pop('oauth_state', None)
     
     if not state or state != request.GET.get('state'):
+        print(f"ERRO STATE: Sessão '{state}' vs Google '{request.GET.get('state')}'")
         messages.error(request, "Erro de segurança (STATE mismatch). Tente novamente.")
         return redirect('cliente') 
 
     try:
-        flow = Flow.from_client_secrets_file(
+        flow = InstalledAppFlow.from_client_secrets_file(
             CLIENT_SECRET_FILE, 
             scopes=SCOPES, 
             redirect_uri=request.build_absolute_uri() # Usa a URL atual
         )
+        flow.redirect_uri = 'http://127.0.0.1:8000/'
+
+        query_string = request.get_full_path()
+        authorization_response_url = f"http://127.0.0.1:8000/{query_string}"
+        flow.fetch_token(authorization_response=authorization_response_url)
         
         flow.fetch_token(authorization_response=request.build_absolute_uri())
 
@@ -686,6 +699,7 @@ def criar_agendamento(request):
             agendamento.confirmado = True
             agendamento.save()
 
+            
             # Tenta criar o evento no Google Calendar
             cliente = request.user
 

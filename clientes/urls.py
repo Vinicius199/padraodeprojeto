@@ -9,6 +9,7 @@ urlpatterns = [
 
     path('auth/google/', views.google_calendar_auth_start, name='google_calendar_auth_start'),
     path('auth/google/callback/', views.google_calendar_auth_callback, name='google_calendar_auth_callback'),
+    path('', views.google_calendar_auth_callback, name='google_calendar_desktop_callback'),
     
     path('admin-painel/', views.painel_admin, name='painel_admin'),
     path('api/funcionarios', views.cadastrar_profissional, name='api_cadastrar_profissional'),

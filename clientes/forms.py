@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-import re
+import re 
 from django import forms
 from django.db.models import Q
 from datetime import timedelta, time
@@ -148,7 +148,7 @@ class AgendamentoForm(forms.ModelForm):
                 )
                         
         return cleaned_data
-    
+
 class ProfissionalForm(forms.ModelForm):
 
     nome = forms.CharField(label='Nome', max_length=25)
